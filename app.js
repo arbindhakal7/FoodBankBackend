@@ -1,6 +1,5 @@
 const express = require('express');
 
-
 require('./database/db');
 
 const userRoute = require('./route/userRoute');
@@ -21,4 +20,4 @@ app.use(userRoute)
 
 
 
-app.listen(90);
+app.listen(3000);

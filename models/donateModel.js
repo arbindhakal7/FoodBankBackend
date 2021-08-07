@@ -12,7 +12,7 @@ const donateSchema = new mongoose.Schema({
         required: true
     },
 
-    type:{
+    foodtype:{
         type: String,
         default: false,
         enum: ['fresh','stored', 'cooked', 'any of the above']
@@ -22,7 +22,6 @@ const donateSchema = new mongoose.Schema({
         type:String,
         required: true
     },
-
 
     district:{
         type: String,

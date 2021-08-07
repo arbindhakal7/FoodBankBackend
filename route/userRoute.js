@@ -2,6 +2,7 @@ const express = require('express');
 const User = require('../models/userModel');
 const bcrypt = require("bcryptjs");
 const router = new express.Router(); //bulk export of the route
+
 const upload = require('../middleware/fileupload');
 
 
@@ -82,38 +83,44 @@ router.post('/user/login', function (req, res) {
         const token = jwt.sign({ YourId: data._id }, 'anysecretkey');
         res.status(200).json({ t: token, message: "Auth Success!" }) //here t is representative
 
-        
+
 
       })
 
     })
-    .catch()
+    .catch(function (e) {
+
+      res.status(500).json()({ message: err })
+
+    });
 })
 
 
 
 // to upload a
-router.post('/profile/upload', upload.single('myimage'), function(req, res) {
-  
-if(req.file==undefined){
-  return res.status(400).json({message: "upload"})
-}
+router.post('/profile/upload', upload.single('myimage'), function (req, res) {
+
+  if (req.file == undefined) {
+    return res.status(400).json({ message: "upload" })
+  }
 
 
-const data = new Users({
-  profile_pic : req.file.filename
-})
-data.save()
-.then(function(){
-
-
-})
-.catch(function(){
-
-  
-})
-
+  const data = new Users({
+    profile_pic: req.file.filename
   })
+
+  data.save()
+    .then(function (result) {
+      res.status(201).json({ message: "Profile pic uploaded" })
+
+    })
+    .catch(function (e) {
+
+      res.status(500).json()({ message: err })
+
+    });
+
+})
 
 
 
