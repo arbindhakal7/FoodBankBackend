@@ -21,5 +21,42 @@ router.route('/')
 }).catch(err => next(err));
 })
 
+.delete((req, res,next) => {
+    DonateFood.deleteMany({user: req.user.id})
+    .then(reply=> {
+        res.json(reply);
+    }).catch(next);
+});
+router.route('/:donation_id')
+.get((req,res,next) => {
+    DonateBlood.findById(req.params.donation_id)
+    .then(Donation => {
+        res.json(Donation);
+    }).catch(next);
+})
+.put((req,res,next) => {
+    DonateFood.findByIdAndUpdate( req.params.donation_id,
+        {$set: {phone: req.body.phone, 
+            country: req.body.country, 
+            district: req.body.district, 
+            street: req.body.street, 
+            foodtype: req.body.foodtype
+         }},{new: true})
+    .then(updatedDonation => {
+        res.json(updatedDonation);
+
+    }).catch(next);
+})
+
+.delete((req, res, next) => {
+    DonateFood.deleteOne({_id:req.params.donation_id})
+    .then(reply => {
+        res.json(reply);
+    }).catch(next);
+})
+
+
+
+
 
 module.exports = router;
