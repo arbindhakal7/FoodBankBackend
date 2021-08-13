@@ -11,12 +11,13 @@ const upload = require('../middleware/fileupload');
 router.post('/user/register', function (req, res) {
 
   // here username in req.body.username must match with json file in postman
-  const phone = req.body.phone;
+  const name = req.body.name;
   const email = req.body.email;
+  const gender = req.body.gender;
   const password = req.body.password;
 
   bcrypt.hash(password, 10, function (err, hash1) {
-    const data = new Users({ phone: phone, email: email, password: hash1 });
+    const data = new Users({ name:name, email: email, gender: gender, password: hash1 });
 
     // var data = new Users(req.body); - this is for sending all data at the same time but can't validate
 

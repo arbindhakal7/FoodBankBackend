@@ -6,17 +6,12 @@ destination: function(req,file,cb){
 },
 filename: function(req,file, cb){
     cb(null, Date.now() + file.originalname)
-    
+
 }
 })
- 
-// const filter = "abc";
- 
 
-
-
-const filter = function(req,file,cb) {
-    if(file.mimetype == 'image/png' || file.mimetype=='image/jpg'    
+const filter = function(req,file,cb){
+    if(file.mimetype == 'image/png' || file.mimetype=='image/jpg'    || file.mimetype=='image/jpeg'    
     ){
         cb(null,true)
     }
@@ -24,12 +19,16 @@ const filter = function(req,file,cb) {
         cb(null, false)
     }
 }
-      
-const upload = multer({ // destination + validation
-    storage : storage,
-    fileFilter: filter
-     
-    });
 
- 
+// const filter = "abc";
+
+const upload = multer({ 
+    
+    // destination + validation
+storage : storage, fileFilter: filter});
+
+
+
+
 module.exports = upload;
+

@@ -45,33 +45,3 @@ module.exports.verifyAdmin =  function(req, res, next){
     next();
 }
 
-
-module.exports.verifySeller =  function(req, res, next){
-    if(!req.userData){
-        return res.status(401).json({message : "Unauthorized!!"})
-    }
-    else if(req.userData.userType!=='Seller'){
-        return res.status(401).json({message : "Unauthorized!!"})
-    }
-    next();
-}
-
-module.exports.verifyCustomer =  function(req, res, next){
-    if(!req.userData){
-        return res.status(401).json({message : "Unauthorized!!"})
-    }
-    else if(req.userData.userType!=='Customer'){
-        return res.status(401).json({message : "Unauthorized!!"})
-    }
-    next();
-}
-
-module.exports.verifyCustomer =  function(req, res, next){
-    if(!req.userData){
-        return res.status(401).json({message : "Unauthorized!!"})
-    }
-    else if(req.userData.userType!=='Vendor'){
-        return res.status(401).json({message : "Unauthorized!!"})
-    }
-    next();
-}

@@ -10,6 +10,14 @@ const requestSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+
+    
+    foodtype:{
+        type: String,
+        default: false,
+        enum: ['fresh','stored', 'cooked', 'any of the above']
+    },
+    
     Phone:{
         type: String,
         required: true
