@@ -2,7 +2,7 @@ const express = require('express');
 const User = require('../models/userModel');
 const bcrypt = require("bcryptjs");
 const router = new express.Router(); //bulk export of the route
-
+const jwt = require ("jsonwebtoken")
 const upload = require('../middleware/fileupload');
 
 
@@ -11,13 +11,12 @@ const upload = require('../middleware/fileupload');
 router.post('/user/register', function (req, res) {
 
   // here username in req.body.username must match with json file in postman
-  const name = req.body.name;
+  const fullname = req.body.fullname;
   const email = req.body.email;
-  const gender = req.body.gender;
   const password = req.body.password;
 
   bcrypt.hash(password, 10, function (err, hash1) {
-    const data = new Users({ name:name, email: email, gender: gender, password: hash1 });
+    const data = new User({ fullname:fullname, email: email, password: hash1 });
 
     // var data = new Users(req.body); - this is for sending all data at the same time but can't validate
 
@@ -57,12 +56,12 @@ router.put('/user/update', function (req, res) {
 router.post('/user/login', function (req, res) {
 
   // first we need phone number and password from client
-  const phone = req.body.phone;
+  const email = req.body.email;
   const password = req.body.password;
 
   // now we need to check whether the phone number exists or not
 
-  User.findOne({ phone: phone })
+  User.findOne({ email: email })
     .then(function (userData) {
 
       // all the data of user in now in the variable userData
@@ -81,8 +80,9 @@ router.post('/user/login', function (req, res) {
 
         // we need to create a token now
 
-        const token = jwt.sign({ YourId: data._id }, 'anysecretkey');
-        res.status(200).json({ t: token, message: "Auth Success!" }) //here t is representative
+        const token = jwt.sign({ YourId: userData._id }, 'anysecretkey');
+        res.status(200).json({ t: token, message: "Auth Success!" })
+         //here t is representative
 
 
 
