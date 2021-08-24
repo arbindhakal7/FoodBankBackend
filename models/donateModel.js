@@ -17,6 +17,10 @@ const donateSchema = new mongoose.Schema({
         default: false,
         enum: ['fresh','stored', 'cooked', 'any of the above']
     },
+
+    foodimage:{
+        type:String
+    },
    
     country:{
         type:String,

@@ -2,7 +2,7 @@ const express = require('express');
 const User = require('../models/userModel');
 const bcrypt = require("bcryptjs");
 const router = new express.Router(); //bulk export of the route
-const jwt = require ("jsonwebtoken")
+const jwt = require("jsonwebtoken")
 const upload = require('../middleware/fileupload');
 
 
@@ -13,10 +13,11 @@ router.post('/user/register', function (req, res) {
   // here username in req.body.username must match with json file in postman
   const fullname = req.body.fullname;
   const email = req.body.email;
+  const phonenumber = req.body.phonenumber
   const password = req.body.password;
 
   bcrypt.hash(password, 10, function (err, hash1) {
-    const data = new User({ fullname:fullname, email: email, password: hash1 });
+    const data = new User({ fullname: fullname, phonenumber: phonenumber,email: email, password: hash1 });
 
     // var data = new Users(req.body); - this is for sending all data at the same time but can't validate
 
@@ -82,7 +83,7 @@ router.post('/user/login', function (req, res) {
 
         const token = jwt.sign({ YourId: userData._id }, 'anysecretkey');
         res.status(200).json({ t: token, message: "Auth Success!" })
-         //here t is representative
+        //here t is representative
 
 
 
