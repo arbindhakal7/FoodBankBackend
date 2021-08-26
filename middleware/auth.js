@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const Users = require('../models/User');
+const Users = require('../models/userModel');
 
 //Guard
 
@@ -27,7 +27,7 @@ module.exports.verifyUser = function(req,res,next){
         
     }
 
-    catch{
+    catch(e){
         res.status(401).json({error : e})
     }
 

@@ -81,8 +81,8 @@ router.post('/user/login', function (req, res) {
 
         // we need to create a token now
 
-        const token = jwt.sign({ YourId: userData._id }, 'anysecretkey');
-        res.status(200).json({ t: token, message: "Auth Success!" })
+        const token = jwt.sign({ Id: userData._id }, 'anysecretkey');
+        res.status(200).json({Id: userData._id ,t: token, message: "Auth Success!" })
         //here t is representative
 
 

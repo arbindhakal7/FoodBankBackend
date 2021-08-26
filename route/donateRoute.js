@@ -14,7 +14,7 @@ router.route('/')
 })
 .post((req, res, next)=> {
     let {foodtype, phone, country, district, street} = req.body;
-    DonateFood.create({ user: req.user.id, foodtype, country, district, street, phone})
+    DonateFood.create({ user: req.userData._id, foodtype, country, district, street, phone})
 .then( Donation => {
     res.status(201).json(Donation);
 
@@ -22,14 +22,14 @@ router.route('/')
 })
 
 .delete((req, res,next) => {
-    DonateFood.deleteMany({user: req.user.id})
+    DonateFood.deleteMany({user: req.userData._id})
     .then(reply=> {
         res.json(reply);
     }).catch(next);
 });
 router.route('/:donation_id')
 .get((req,res,next) => {
-    DonateBlood.findById(req.params.donation_id)
+    DonateFood.findById(req.params.donation_id)
     .then(Donation => {
         res.json(Donation);
     }).catch(next);

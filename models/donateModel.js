@@ -9,12 +9,11 @@ const donateSchema = new mongoose.Schema({
 
     Phone:{
         type: String,
-        required: true
+        required: false
     },
 
     foodtype:{
         type: String,
-        default: false,
         enum: ['fresh','stored', 'cooked', 'any of the above']
     },
 

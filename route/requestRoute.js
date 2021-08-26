@@ -1,11 +1,12 @@
 const express = require('express')
+
 const router = express.Router()
 const {verifyUser, verifyAdmin} = require('../middleware/auth')
 const RequestFood = require('../models/requestModel')
 
 router.route('/')
 .get((req,res,next)=>{
-    RequestFood.find({user: req.user.id})
+    RequestFood.find({user: req.userData._id})
     .then(requests => {
         res.setHeader('Content-Type', 'application/json');
         res.json(requests);
@@ -16,7 +17,7 @@ router.route('/')
 .post((req,res,next)=>{
     let {foodtype, requestName, phone, district, street} = req.body
 
-    RequestFood.create({user: req.user.id,foodtype, requestName, 
+    RequestFood.create({user: req.userData._id,foodtype, requestName, 
         phone, district, street })
         .then(Request => {
             res.status(201).json(Request)
@@ -24,7 +25,7 @@ router.route('/')
         .catch(err => next(err))
 })
 .delete((req,res,next)=>{
-    RequestFood.deleteMany({user: req.user.id})
+    RequestFood.deleteMany({user: req.userData._id})
     .then(reply => {
         res.json(reply)
     })
