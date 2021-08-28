@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-const charitySchema = new mongoose.Schema({
-    charityName:{
+const foodBankSchema = new mongoose.Schema({
+    FoodBankName:{
         type: String,
         required: true
     },
@@ -23,5 +23,5 @@ const charitySchema = new mongoose.Schema({
     }]
 },{timestamps:true});
 
-module.exports = mongoose.model('Charity', charitySchema )
+module.exports = mongoose.model('FoodBank', foodBankSchema )
 
