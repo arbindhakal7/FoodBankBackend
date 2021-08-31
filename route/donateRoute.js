@@ -9,12 +9,12 @@ router.route('/')
     DonateFood.find()
     .then(donations=> {
         res.setHeader('Content-Type', 'application/json');
-        res.json(donations);
+        res.json({success:"true",data:donations});
     }).catch(next);
 })
 .post((req, res, next)=> {
     let {foodtype, phone, country, district, street} = req.body;
-    DonateFood.create({ user: req.userData._id, foodtype, country, district, street, phone})
+    DonateFood.create({ user: req._id, foodtype, country, district, street, phone})
 .then( Donation => {
     res.status(201).json(Donation);
 
