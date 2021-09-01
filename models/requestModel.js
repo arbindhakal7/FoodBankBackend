@@ -18,7 +18,7 @@ const requestSchema = new mongoose.Schema({
         enum: ['fresh','stored', 'cooked', 'any of the above']
     },
     
-    Phone:{
+    phone:{
         type: String,
         required: true
     },
