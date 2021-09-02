@@ -1,7 +1,7 @@
 const express = require('express')
 
 const router = express.Router()
-const {verifyUser, verifyAdmin} = require('../middleware/auth')
+const {verifyUser} = require('../middleware/auth')
 const RequestFood = require('../models/requestModel')
 
 router.route('/')
@@ -9,7 +9,7 @@ router.route('/')
     RequestFood.find({user: req.userData._id})
     .then(requests => {
         res.setHeader('Content-Type', 'application/json');
-        res.json(requests);
+        res.json({success: "true", data:requests});
     })
      .catch(next)
 })
@@ -17,7 +17,7 @@ router.route('/')
 .post((req,res,next)=>{
     let {foodtype, requestName, phone, district, street} = req.body
 
-    RequestFood.create({user: req.userData._id,foodtype, requestName, 
+    RequestFood.create({user: req._id,foodtype, requestName, 
         phone, district, street })
         .then(Request => {
             res.status(201).json(Request)
