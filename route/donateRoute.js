@@ -13,8 +13,8 @@ router.route('/')
     }).catch(next);
 })
 .post((req, res, next)=> {
-    let {foodtype, phone, country, district, street} = req.body;
-    DonateFood.create({ user: req._id, foodtype, country, district, street, phone})
+    let {foodtype, phone, country, district, street, date} = req.body;
+    DonateFood.create({ user: req._id, foodtype, country, district, street, phone, date})
 .then( Donation => {
     res.status(201).json(Donation);
 
@@ -40,7 +40,8 @@ router.route('/:donation_id')
             country: req.body.country, 
             district: req.body.district, 
             street: req.body.street, 
-            foodtype: req.body.foodtype
+            foodtype: req.body.foodtype,
+            date: req.body.date
          }},{new: true})
     .then(updatedDonation => {
         res.json(updatedDonation);
