@@ -11,24 +11,29 @@ const requestSchema = new mongoose.Schema({
         required: true
     },
 
-    
-    foodtype:{
-        type: String,
-        default: false,
-        enum: ['fresh','stored', 'cooked', 'any of the above']
-    },
-    
     phone:{
         type: String,
         required: true
     },
 
+    foodtype:{
+        type: String,
+        required: true,
+        default: 'any',
+        enum: ['fresh','stored', 'cooked', 'any']
+    },
+    
     district:{
         type: String,
         required: true
     },
 
     street: { 
+        type: String,
+        required: true
+    },
+
+    date: {
         type: String,
         required: true
     }
