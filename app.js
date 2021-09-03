@@ -1,6 +1,9 @@
 const express = require('express');
 const cors = require('cors')
 require('./database/db');
+require('dotenv').config();
+
+
 const auth = require('./middleware/auth')
 
 const userRoute = require('./route/userRoute');
@@ -32,4 +35,6 @@ app.use('/api/admin', verifyUser ,verifyAdmin , adminRoute);
 
 
 
-app.listen(90);
+app.listen(process.env.port, () => {
+    console.log(`server is running at localhost:${process.env.port}`);
+});
