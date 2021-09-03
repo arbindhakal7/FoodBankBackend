@@ -6,7 +6,7 @@ const RequestFood = require('../models/requestModel')
 
 router.route('/')
 .get((req,res,next)=>{
-    RequestFood.find({user: req.userData._id})
+    RequestFood.find()
     .then(requests => {
         res.setHeader('Content-Type', 'application/json');
         res.json({success: "true", data:requests});
@@ -15,10 +15,10 @@ router.route('/')
 })
 
 .post((req,res,next)=>{
-    let {foodtype, requestName, phone, district, street} = req.body
+    let {foodtype, requestName, phone, district, street, date, country} = req.body
 
-    RequestFood.create({user: req._id,foodtype, requestName, 
-        phone, district, street })
+    RequestFood.create({user: req._id, foodtype, requestName, 
+        phone, district, street, date, country })
         .then(Request => {
             res.status(201).json(Request)
         })

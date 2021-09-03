@@ -13,11 +13,11 @@ router.post('/user/register', function (req, res) {
   // here username in req.body.username must match with json file in postman
   const fullname = req.body.fullname;
   const email = req.body.email;
-  const phonenumber = req.body.phonenumber
+  const phone = req.body.phone
   const password = req.body.password;
 
   bcrypt.hash(password, 10, function (err, hash1) {
-    const data = new User({ fullname: fullname, phonenumber: phonenumber,email: email, password: hash1 });
+    const data = new User({ fullname: fullname, phone: phone,email: email, password: hash1 });
 
     // var data = new Users(req.body); - this is for sending all data at the same time but can't validate
 
@@ -81,8 +81,8 @@ router.post('/user/login', function (req, res) {
 
         // we need to create a token now
 
-        const token = jwt.sign({ Id: userData._id }, 'anysecretkey');
-        res.status(200).json({Id: userData._id ,t: token, message: "Auth Success!" })
+        const token = jwt.sign({ id: userData._id }, 'anysecretkey');
+        res.status(200).json({id: userData._id ,t: token, message: "Auth Success!" })
         //here t is representative
 
 

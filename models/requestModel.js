@@ -22,6 +22,11 @@ const requestSchema = new mongoose.Schema({
         default: 'any',
         enum: ['fresh','stored', 'cooked', 'any']
     },
+
+    country: {
+        type: String,
+        required: true,
+    },
     
     district:{
         type: String,

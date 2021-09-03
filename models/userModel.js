@@ -3,8 +3,10 @@ const mongoose = require('mongoose');
 // creating tables for users
 const userSchema = new mongoose.Schema({
 
-    username: {
-        type: String
+    fullname: {
+        type: String,
+        required: true
+
     },
 
     email: {
@@ -19,6 +21,7 @@ const userSchema = new mongoose.Schema({
     },
 
     password: {
+        required: true,
         type: String
     },
 
@@ -44,7 +47,4 @@ const userSchema = new mongoose.Schema({
 
 })
 
-// table name is Users
-const user = mongoose.model('User', userSchema);
-
-module.exports = user;
+module.exports = mongoose.model('User', userSchema);
