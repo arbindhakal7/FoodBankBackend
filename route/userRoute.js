@@ -53,48 +53,95 @@ router.put('/user/update', function (req, res) {
 })
 
 
-// Login System
-router.post('/user/login', function (req, res) {
+// // Login System
+// router.post('/user/login', function (req, res) {
 
-  // first we need phone number and password from client
-  const email = req.body.email;
-  const password = req.body.password;
+//   // first we need phone number and password from client
+//   const email = req.body.email;
+//   const password = req.body.password;
 
-  // now we need to check whether the phone number exists or not
+//   // now we need to check whether the phone number exists or not
 
-  User.findOne({ email: email })
-    .then(function (userData) {
+//   User.findOne({ email: email })
+//     .then(function (userData) {
 
-      // all the data of user in now in the variable userData
-      if (userData === null) {
-        return res.status(403).json({ message: "invalid credentials" })
-      }
-      // valid user in terms of phone number
-      // compare stored passwords with the given password
-      bcrypt.compare(password, userData.password, function (err, result) {
-        if (result === false) {
-          // if the password is incorrect
-          return res.status(403).json({ message: "invalid credentials" })
-        }
+//       // all the data of user in now in the variable userData
+//       if (userData === null) {
+//         return res.status(403).json({ message: "invalid credentials" })
+//       }
+//       // valid user in terms of phone number
+//       // compare stored passwords with the given password
+//       bcrypt.compare(password, userData.password, function (err, result) {
+//         if (result === false) {
+//           // if the password is incorrect
+//           return res.status(403).json({ message: "invalid credentials" })
+//         }
 
-        // // username and password both are correct
+//         // // username and password both are correct
 
-        // we need to create a token now
+//         // we need to create a token now
 
-        const token = jwt.sign({ id: userData._id }, 'anysecretkey');
-        res.status(200).json({id: userData._id ,t: token, message: "Auth Success!" })
-        //here t is representative
+//         const token = jwt.sign({ id: userData._id }, 'anysecretkey');
+//         res.status(200).json({id: userData._id ,t: token, message: "Auth Success!" })
+//         //here t is representative
 
 
 
-      })
+//       })
 
-    })
-    .catch(function (e) {
+//     })
+//     .catch(function (e) {
 
-      res.status(500).json()({ message: err })
+//       res.status(500).json()({ message: err })
 
-    });
+//     });
+// })
+
+
+router.post('/user/login', (req, res, next) => {
+  let { email, password } = req.body;
+  User.findOne({ email })
+      .then((user) => {
+          if (!user) {
+              let err = new Error('User not found ');
+              err.status = 401;
+              return next(err);
+          }
+          bcrypt.compare(password, user.password)
+              .then((isMatched) => {
+                  if (!isMatched) {
+                      let err = new Error('password does not match');
+                      err.status = 401;
+                      return next(err);
+                  }
+                  let payload = {
+                      id: user.id,
+                      fullname: user.fullname,
+                      email: user.email,
+                      phone: user.phone,
+                      address: user.address,
+                      role: user.role,
+                      dateOfBirth: user.dateOfBirth,
+                      gender: user.gender,
+                      profile_pic: user.profile_pic
+
+
+                  }
+                  jwt.sign(payload, process.env.SECRET, (err, token) => {
+                      if (err) {
+                          return next(err);
+                      }
+                      res.json({
+                          status: 'Login Sucessful',
+                          token: `Bearer ${token}`,
+                          id: user.id
+                      });
+                  });
+
+
+              }).catch(next);
+      }).catch(next);
+
 })
 
 
