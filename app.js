@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({
 app.use(userRoute)
 
 app.use('/api/DonateFood',auth.verifyUser, donateRoute);
-app.use('/api/RequestFood' , requestRoute);
+app.use('/api/RequestFood',auth.verifyUser , requestRoute);
 app.use('/api/admin', verifyUser ,verifyAdmin , adminRoute);
 
 

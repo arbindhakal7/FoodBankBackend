@@ -17,7 +17,7 @@ router.route('/')
 .post((req,res,next)=>{
     let {foodtype, requestName, phone, district, street, date, country} = req.body
 
-    RequestFood.create({user:user.request_id, foodtype, requestName, 
+    RequestFood.create({user: req.user.id, foodtype, requestName, 
         phone, district, street, date, country })
         .then(Request => {
             res.status(201).json(Request)
