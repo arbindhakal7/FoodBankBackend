@@ -39,7 +39,7 @@ router.put('/user/update', function (req, res) {
 
   const id = req.body.id;
   const profile_pic = req.body.profile_pic;
-  Users.updateOne({ _id: id }, { profile_pic: profile_pic })
+  User.updateOne({ _id: id }, { profile_pic: profile_pic })
     .then(function (result) {
 
       res.status(201).json({ message: "Profile Pic Updated" })
