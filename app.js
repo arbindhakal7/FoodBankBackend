@@ -10,6 +10,7 @@ const userRoute = require('./route/userRoute');
 const donateRoute = require('./route/donateRoute')
 const requestRoute = require('./route/requestRoute')
 const adminRoute = require('./route/adminRoute')
+const profileRoute = require('./route/profileRoute')
 const morgan = require('morgan')
 
 const bodyParser = require("body-parser");
@@ -27,9 +28,12 @@ app.use(bodyParser.urlencoded({
 
 app.use(userRoute)
 
-app.use('/api/DonateFood',auth.verifyUser, donateRoute);
-app.use('/api/RequestFood',auth.verifyUser , requestRoute);
+app.use('/api/DonateFood' ,donateRoute);
+app.use('/api/RequestFood' ,auth.verifyUser, requestRoute);
 app.use('/api/admin', verifyUser ,verifyAdmin , adminRoute);
+app.use('/api/Profile', auth.verifyUser, profileRoute);
+
+
 
 
 
