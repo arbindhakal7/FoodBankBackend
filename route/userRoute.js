@@ -8,30 +8,36 @@ const upload = require('../middleware/fileupload');
 
 
 // Insert - post
-router.post('/user/register', function (req, res) {
+router.post('/register', (req, res, next) => {
+  let { errors, isvalid } = validation.RegisterInput(req.body);
+  if (!isvalid) {
+      return res.status(400).json({
+          status: 'error',
+          message: errors
+      });
+  }
 
-  // here username in req.body.username must match with json file in postman
-  const fullname = req.body.fullname;
-  const email = req.body.email;
-  const phone = req.body.phone
-  const password = req.body.password;
+  let { fullname, password, phone, role, email,
+      dateOfBirth, gender, address } = req.body;
+  User.findOne({ username })
+      .then((user) => {
+          if (user) {
+              let err = new Error('User already exists!');
+              err.status = 400;
+              return next(err);
+          }
+          bcrypt.hash(password, 10)
+              .then(hashed => {
+                  User.create({
+                      fullname, password: hashed,  phone, role,
+                      email, dateOfBirth, gender, address
+                  })
+                      .then(user => {
+                          res.status(201).json({ user, "status": "Registration successful" });
+                      }).catch(next);
+              }).catch(next);
 
-  bcrypt.hash(password, 10, function (err, hash1) {
-    const data = new User({ fullname: fullname, phone: phone,email: email, password: hash1 });
-
-    // var data = new Users(req.body); - this is for sending all data at the same time but can't validate
-
-    data.save()
-      .then(function (result) {
-        res.status(201).json({ message: "Registered successfully" })
-      })
-      .catch(function (err) {
-        res.status(500).json({ message: err })
-
-      })
-
-
-  })
+      }).catch(next);
 
 })
 
