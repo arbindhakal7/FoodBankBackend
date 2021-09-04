@@ -1,5 +1,7 @@
 const express = require('express');
 const cors = require('cors')
+const path = require('path')
+
 require('./database/db');
 require('dotenv').config();
 
@@ -24,12 +26,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
 }))
+app.use(express.static(path.join(__dirname, 'public')));
 
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 app.use(userRoute)
 app.use('/api/user', userRoute);
 app.use('/api/DonateFood' ,donateRoute);
-app.use('/api/RequestFood' ,auth.verifyUser, requestRoute);
+app.use('/api/RequestFood',  requestRoute);
 app.use('/api/admin', verifyUser ,verifyAdmin , adminRoute);
 app.use('/api/Profile', auth.verifyUser, profileRoute);
 
