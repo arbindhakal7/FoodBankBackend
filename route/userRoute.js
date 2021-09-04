@@ -42,7 +42,7 @@ router.post('/register', (req, res, next) => {
 
 })
 
-router.put('/user/update', function (req, res) {
+router.put('/update', function (req, res) {
 
   const id = req.body.id;
   const profile_pic = req.body.profile_pic;
@@ -105,7 +105,7 @@ router.put('/user/update', function (req, res) {
 // })
 
 
-router.post('/user/login', (req, res, next) => {
+router.post('/login', (req, res, next) => {
   let { email, password } = req.body;
   User.findOne({ email })
       .then((user) => {

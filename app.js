@@ -32,14 +32,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use(userRoute)
 app.use('/api/user', userRoute);
 app.use('/api/DonateFood' ,donateRoute);
 app.use('/api/RequestFood',  requestRoute);
 app.use('/api/admin', verifyUser ,verifyAdmin , adminRoute);
 app.use('/api/Profile', auth.verifyUser, profileRoute);
 
-
+app.use((err, req, res, next) => {
+    console.log(err.stack);
+    res.status(err.status || 500);
+    res.json({
+        status: 'error',
+        message: err.message
+    })
+})
 
 
 
