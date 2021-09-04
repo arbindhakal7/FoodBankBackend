@@ -5,7 +5,8 @@ const router = new express.Router(); //bulk export of the route
 const jwt = require("jsonwebtoken")
 const upload = require('../middleware/fileupload');
 
-
+process.env.SECRET_KEY = 'secret'
+const validation = require('../Validation');
 
 // Insert - post
 router.post('/register', (req, res, next) => {
@@ -19,7 +20,7 @@ router.post('/register', (req, res, next) => {
 
   let { fullname, password, phone, role, email,
       dateOfBirth, gender, address } = req.body;
-  User.findOne({ username })
+  User.findOne({ email })
       .then((user) => {
           if (user) {
               let err = new Error('User already exists!');
