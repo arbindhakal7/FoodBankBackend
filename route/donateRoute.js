@@ -1,26 +1,25 @@
 const express = require('express');
-
+ 
 const router = express.Router();
 const DonateFood = require('../models/donateModel')
-
-
+ 
 router.route('/')
 .get((req, res, next)=>{
-    DonateFood.find()
-    .then(donations=> {
+    DonateFood.find({user: req.user.id})
+    .then(donations => {
         res.setHeader('Content-Type', 'application/json');
-        res.json({success:'true',data:donations});
+        res.json(donations);
     }).catch(next);
 })
 .post((req, res, next)=> {
-    let { foodtype, phone, country, district, street, date} = req.body;
-    DonateFood.create({ user: req.user.id, foodtype, country, district, street, phone, date})
+    let {donorName, foodtype, phone, country, district, street, date} = req.body;
+    DonateFood.create({ user: req.user.id,donorName, foodtype, country, district, street, phone, date})
 .then( Donation => {
     res.status(201).json(Donation);
-
+ 
 }).catch(err => next(err));
 })
-
+ 
 .delete((req, res,next) => {
     DonateFood.deleteMany({user: req.user.id})
     .then(reply=> {
@@ -37,6 +36,7 @@ router.route('/:donation_id')
 .put((req,res,next) => {
     DonateFood.findByIdAndUpdate( req.params.donation_id,
         {$set: {phone: req.body.phone, 
+            donorName: req.body.donorName,
             country: req.body.country, 
             district: req.body.district, 
             street: req.body.street, 
@@ -45,10 +45,10 @@ router.route('/:donation_id')
          }},{new: true})
     .then(updatedDonation => {
         res.json(updatedDonation);
-
+ 
     }).catch(next);
 })
-
+ 
 .delete((req, res, next) => {
     DonateFood.deleteOne({_id:req.params.donation_id})
     .then(reply => {
@@ -59,5 +59,5 @@ router.route('/:donation_id')
 
 
 
-
+ 
 module.exports = router;

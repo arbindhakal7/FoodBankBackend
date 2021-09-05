@@ -7,6 +7,11 @@ const donateSchema = new mongoose.Schema({
         ref: 'User'    
     },
 
+    donorName:{
+        type: String,
+        required: true
+    },
+
     phone:{
         type: String,
         required: true
@@ -16,10 +21,6 @@ const donateSchema = new mongoose.Schema({
         type: String,
         enum: ['fresh','stored', 'cooked', 'any'],
         default: 'any'
-    },
-
-    foodimage:{
-        type:String
     },
    
     country:{
