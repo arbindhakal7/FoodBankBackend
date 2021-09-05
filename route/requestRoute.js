@@ -9,7 +9,7 @@ router.route('/')
     RequestFood.find({user: req.user.id})
     .then(requests => {
         res.setHeader('Content-Type', 'application/json');
-        res.json(requests);
+        res.json({success:"true",data:requests});
     })
      .catch(next)
 })
