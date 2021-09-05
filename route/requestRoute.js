@@ -6,10 +6,10 @@ const RequestFood = require('../models/requestModel')
 
 router.route('/')
 .get((req,res,next)=>{
-    RequestFood.find()
+    RequestFood.find({user: req.user.id})
     .then(requests => {
         res.setHeader('Content-Type', 'application/json');
-        res.json({success: "true", data:requests});
+        res.json(requests);
     })
      .catch(next)
 })

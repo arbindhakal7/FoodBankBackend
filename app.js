@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors')
 const path = require('path')
+const mongoose = require('mongoose');
 
 require('./database/db');
 require('dotenv').config();
@@ -19,20 +20,32 @@ const bodyParser = require("body-parser");
 const { verifyAdmin, verifyUser } = require('./middleware/auth');
 const app = express();
 
-app.use(cors())
-app.use(morgan('dev'))
-app.use(bodyParser.json());
+app.use(cors('*'))
+app.use(morgan('tiny'))
 
-app.use(bodyParser.urlencoded({
-    extended: false
-}))
+
+mongoose.connect(process.env.DbURI,{
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useNewUrlParser: true,
+    useCreateIndex: true
+})
+.then(()=> console.log('Database server connected'))
+.catch((err) => console.log(err));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-
+app.get('/',(req, res) => {
+    res.send('Welcome, to my app');
+});
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/api/user', userRoute);
+app.use('/api/DonateFood', verifyUser, donateRoute);
+app.use('/api/RequestFood',  verifyUser, requestRoute);
 app.use('/api/DonateFood' , auth.verifyUser,donateRoute);
 app.use('/api/RequestFood', auth.verifyUser, requestRoute);
 app.use('/api/admin', verifyUser ,verifyAdmin , adminRoute);
