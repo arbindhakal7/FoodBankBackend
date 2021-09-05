@@ -9,12 +9,12 @@ router.route('/')
     DonateFood.find()
     .then(donations=> {
         res.setHeader('Content-Type', 'application/json');
-        res.json({success:true,data:donations});
+        res.json({success:'true',data:donations});
     }).catch(next);
 })
 .post((req, res, next)=> {
-    let {foodtype, phone, country, district, street, date} = req.body;
-    DonateFood.create({ foodtype, country, district, street, phone, date})
+    let { foodtype, phone, country, district, street, date} = req.body;
+    DonateFood.create({ user: req.user.id, foodtype, country, district, street, phone, date})
 .then( Donation => {
     res.status(201).json(Donation);
 
@@ -22,7 +22,7 @@ router.route('/')
 })
 
 .delete((req, res,next) => {
-    DonateFood.deleteMany({user: req.userData._id})
+    DonateFood.deleteMany({user: req.user.id})
     .then(reply=> {
         res.json(reply);
     }).catch(next);

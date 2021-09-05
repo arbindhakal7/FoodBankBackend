@@ -17,7 +17,7 @@ router.route('/')
 .post((req,res,next)=>{
     let {foodtype, requestName, phone, district, street, date, country} = req.body
 
-    RequestFood.create({ foodtype, requestName, 
+    RequestFood.create({ user: req.user.id, foodtype, requestName, 
         phone, district, street, date, country })
         .then(Request => {
             res.status(201).json(Request)
@@ -25,7 +25,7 @@ router.route('/')
         .catch(err => next(err))
 })
 .delete((req,res,next)=>{
-    RequestFood.deleteMany({user: req.userData._id})
+    RequestFood.deleteMany({user: req.user.id})
     .then(reply => {
         res.json(reply)
     })

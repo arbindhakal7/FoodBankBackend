@@ -33,8 +33,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/api/user', userRoute);
-app.use('/api/DonateFood' ,donateRoute);
-app.use('/api/RequestFood',  requestRoute);
+app.use('/api/DonateFood' , auth.verifyUser,donateRoute);
+app.use('/api/RequestFood', auth.verifyUser, requestRoute);
 app.use('/api/admin', verifyUser ,verifyAdmin , adminRoute);
 app.use('/api/Profile', auth.verifyUser, profileRoute);
 

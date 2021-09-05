@@ -139,7 +139,7 @@ router.post('/login', (req, res, next) => {
                           return next(err);
                       }
                       res.json({
-                          status: 'Login Sucessful',
+                          status: 'Login Successful',
                           token: `Bearer ${token}`,
                           id: user.id
                       });
