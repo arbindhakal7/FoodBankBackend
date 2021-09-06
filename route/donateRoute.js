@@ -8,7 +8,7 @@ router.route('/')
     DonateFood.find({user: req.user.id})
     .then(donations => {
         res.setHeader('Content-Type', 'application/json');
-        res.json({success: "true", data:donations});
+        res.json(donations);
     }).catch(next);
 })
 .post((req, res, next)=> {
