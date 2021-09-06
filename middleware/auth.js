@@ -11,9 +11,16 @@ function verifyUser(req, res, next) {
     }
     let token = authHeader.split(" ")[1];
     jwt.verify(token, process.env.SECRET, (err, payload) => {
-        if (err) return next(err);
-        req.user = payload;
+        if (err) {
+            let err = new Error('Token cound not be found!');
+            err.status = 401;
+            return next(err);
+        } else{
+            req.user = payload;
+        console.log( "verified user");
         next();
+        }
+        
     })
 
 }
