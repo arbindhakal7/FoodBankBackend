@@ -14,6 +14,8 @@ const donateRoute = require('./route/donateRoute')
 const requestRoute = require('./route/requestRoute')
 const adminRoute = require('./route/adminRoute')
 const profileRoute = require('./route/profileRoute')
+const foodbankRoute = require('./route/FoodBankRoute')
+
 const morgan = require('morgan')
 
 const bodyParser = require("body-parser");
@@ -44,12 +46,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/api/user', userRoute);
-app.use('/api/DonateFood', verifyUser, donateRoute);
-app.use('/api/RequestFood',  verifyUser, requestRoute);
 app.use('/api/DonateFood' , auth.verifyUser,donateRoute);
 app.use('/api/RequestFood', auth.verifyUser, requestRoute);
 app.use('/api/admin', verifyUser ,verifyAdmin , adminRoute);
 app.use('/api/Profile', auth.verifyUser, profileRoute);
+app.use('/api/FoodBank', auth.verifyUser, foodbankRoute);
 
 app.use((err, req, res, next) => {
     console.log(err.stack);

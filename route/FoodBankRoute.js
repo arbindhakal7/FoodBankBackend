@@ -20,7 +20,7 @@ router.route('/')
     
 })
 
-router.route('/:bloodBank_id')
+router.route('/:foodBank_id')
 .get(verifyAdmin,(req, res, next)=> {
     FoodBank.findById(req.params.foodBank_id)
     .then(foodBank=>{
