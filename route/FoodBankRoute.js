@@ -12,8 +12,8 @@ router.route('/')
     }).catch(next);
 })
 .post(verifyAdmin, (req,res,next)=>{
-    let {FoodBankName, availableFood, donations, requests } = req.body;
-    FoodBank.create({FoodBankName,availableFood, donations, requests })
+    let {FoodBankName, address, phone, donations, requests } = req.body;
+    FoodBank.create({FoodBankName, address, phone, donations, requests })
     .then(foodBank=> {
         res.status(201).json(foodBank)
     }).catch(next);
