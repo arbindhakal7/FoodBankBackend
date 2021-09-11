@@ -5,13 +5,13 @@ const foodBankSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    Address:{
+    address:{
         type: String,
-        required: true
+        required: false
     },
     phone:{
         type: String,
-        required: true
+        required: false
     },
     donations: [{
         type: mongoose.Schema.Types.ObjectId,
