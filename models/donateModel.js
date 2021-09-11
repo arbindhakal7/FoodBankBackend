@@ -37,6 +37,13 @@ const donateSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+
+    status:{
+        type: String,
+        required: false,
+        enum: ['donated', 'on the way', 
+        'stocked']
+    },
     
     date: {
         type: String,
