@@ -7,8 +7,8 @@ const { verifyAdmin } = require('../middleware/auth');
 router.route('/')
 .get((req, res, next)=> {
     FoodBank.find()
-    .then(availableFood=>{
-        res.json(availableFood)
+    .then(donations=>{
+        res.json(donations)
     }).catch(next);
 })
 .post(verifyAdmin, (req,res,next)=>{
