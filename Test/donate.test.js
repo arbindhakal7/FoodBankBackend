@@ -44,6 +44,7 @@ describe('Donation Schema test anything', () => {
     
      };
     
+     
     
      return Donate.create(donation)
     
@@ -55,5 +56,13 @@ describe('Donation Schema test anything', () => {
     
      });
     
-
+   // the code below is for delete all insertions == testing
+    
+     it('to test the delete', async () => {
+    
+     const status = await Donate.deleteMany();
+    
+     expect(status.ok).toBe(1);
+    
+    });
 })
