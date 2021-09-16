@@ -1,7 +1,5 @@
-const Donate = require('../models/donateModel');
-
+const Request = require('../models/requestModel');
 const mongoose = require('mongoose');
-const donateModel = require('../models/donateModel');
 
 // use the new name of the database
 
@@ -25,3 +23,35 @@ beforeAll(async () => {
    
    });
    
+   describe('Request Schema test anything', () => {
+
+    // the code below is for insert testing
+    
+     it('Add request testing anything', () => {
+    
+     const request = {
+    
+     'requestName': 'Arbin Dhakal',
+     'phone': '9821898001',
+     'country': 'Nepal',
+     'district': 'Kathmandu',
+     'street': 'Putalisadak',
+      'foodtype': 'fresh',
+     'date': '09/09/2021',
+    
+     };
+    
+     
+    
+     return Request.create(request)
+    
+     .then((request) => {
+    
+     expect(request.requestName).toEqual('Arbin Dhakal');
+    
+     });
+    
+     });
+    
+
+})
