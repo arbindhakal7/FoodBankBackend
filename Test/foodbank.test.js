@@ -22,3 +22,33 @@ afterAll(async () => {
  await mongoose.connection.close();
 
 });
+
+describe('FoodBank Schema test anything', () => {
+
+    // the code below is for insert testing
+    
+     it('Add request testing anything', () => {
+    
+     const foodbank = {
+    
+     'FoodBankName': 'SHANDARVA CHARITY',
+     'phone': '9829091001',
+     'address': 'Kathmandu'
+    
+     };
+    
+     
+    
+     return FoodBank.create(foodbank)
+    
+     .then((foodbank) => {
+    
+     expect(foodbank.FoodBankName).toEqual('SHANDARVA CHARITY');
+    
+     });
+    
+     });
+    
+
+
+})
