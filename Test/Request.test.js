@@ -53,5 +53,14 @@ beforeAll(async () => {
     
      });
     
+  // the code below is for delete all insertions == testing
+    
+     it('to test the delete', async () => {
+    
+     const status = await Request.deleteMany();
+    
+     expect(status.ok).toBe(1);
+    
+    });
 
 })
