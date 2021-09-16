@@ -49,6 +49,15 @@ describe('FoodBank Schema test anything', () => {
     
      });
     
+    // the code below is for delete all insertions == testing
+
+     it('to test the delete', async () => {
+    
+        const status = await FoodBank.deleteMany();
+       
+        expect(status.ok).toBe(1);
+       
+       });
 
 
 })
