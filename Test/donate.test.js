@@ -60,9 +60,17 @@ describe('Donation Schema test anything', () => {
     
      it('to test the delete', async () => {
     
-     const status = await Donate.deleteMany();
+    //  const status = await Donate.deleteMany();
+     const status = await Donate.deleteOne({_id: Object('614b5297704ed53e849c770e')});
     
      expect(status.ok).toBe(1);
     
+    });
+
+    it('to test the update', async () => 
+    { return Donate.findOneAndUpdate({_id :Object('614b4ee9ccbbdd3ac4b03dcb')},
+    {$set : {donorName:'Aayush Dhakal'}})
+     .then((Donate)=>{ 
+        expect(Donate.donorName).toEqual('Arbin Dhakal') }) 
     });
 })
