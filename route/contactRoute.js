@@ -1,20 +1,22 @@
 const express = require('express');
-const contact = require('../models/contactModel');
+const contact = require('../models/ContactModel');
 const router = new express.Router()
-router.post('/contact', function(req,res){
-    const data = new contact({
-        contactname:req.body.contactname,
-        email: req.body.email,
-        number : req.body.number,
-        message :req.body.message
-     
-    })
-    data.save()
-    .then(function(result){
-        res.status(201).json({  success:"true", message:" message sent"})
-    })
-    .catch(function(err){
-        res.status(500).json({message:err})
-    })
+
+router.route('/')
+.get((req, res, next)=>{
+    contact.find()
+    .then(messages => {
+        res.setHeader('Content-Type', 'application/json');
+        res.json(messages);
+    }).catch(next);
 })
+.post((req, res, next)=> {
+    let {fullname, phone, email, message} = req.body;
+    contact.create({ fullname, phone, email, message})
+.then( messages => {
+    res.status(201).json(messages);
+ 
+}).catch(err => next(err));
+})
+
 module.exports = router;

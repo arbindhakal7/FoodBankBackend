@@ -52,7 +52,7 @@ app.use('/api/RequestFood', auth.verifyUser, requestRoute);
 app.use('/api/admin', verifyUser ,verifyAdmin , adminRoute);
 app.use('/api/Profile', auth.verifyUser, profileRoute);
 app.use('/api/FoodBank', auth.verifyUser, foodbankRoute);
-app.use(contactRoute)
+app.use('/api/contact', contactRoute)
 
 app.use((err, req, res, next) => {
     console.log(err.stack);
