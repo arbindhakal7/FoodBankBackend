@@ -15,6 +15,7 @@ const requestRoute = require('./route/requestRoute')
 const adminRoute = require('./route/adminRoute')
 const profileRoute = require('./route/profileRoute')
 const foodbankRoute = require('./route/FoodBankRoute')
+const contactRoute = require('./route/contactRoute')
 
 const morgan = require('morgan')
 
@@ -51,6 +52,7 @@ app.use('/api/RequestFood', auth.verifyUser, requestRoute);
 app.use('/api/admin', verifyUser ,verifyAdmin , adminRoute);
 app.use('/api/Profile', auth.verifyUser, profileRoute);
 app.use('/api/FoodBank', auth.verifyUser, foodbankRoute);
+app.use(contactRoute)
 
 app.use((err, req, res, next) => {
     console.log(err.stack);
