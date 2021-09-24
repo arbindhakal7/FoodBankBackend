@@ -19,4 +19,19 @@ router.route('/')
 }).catch(err => next(err));
 })
 
+router.route('/:contact_id/status')
+.get((req, res, next)=>{
+    contact.findById(req.params.contact_id)
+    .then(contact => {
+        res.json(contact.Status);
+    }).catch(next);
+})
+
+.put((req, res, next)=> {
+    contact.findByIdAndUpdate(req.params.contact_id, {$set: { status: req.body.status}}, {new: true})
+    .then(messages => {
+        res.json(messages);
+    }).catch(next);
+})
+
 module.exports = router;

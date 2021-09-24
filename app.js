@@ -38,7 +38,7 @@ mongoose.connect(process.env.DbURI,{
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'files')));
 
 app.get('/',(req, res) => {
     res.send('Welcome, to my app');

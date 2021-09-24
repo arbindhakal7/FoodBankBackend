@@ -160,15 +160,16 @@ router.post('/profile/upload', upload.single('myimage'), function (req, res) {
     return res.status(400).json({ message: "upload" })
   }
 
+console.log(req.file)
 
-  const data = new Users({
+  const data = Users.updateOne({_id:req.user._id},{
     profile_pic: req.file.filename
   })
 
   data.save()
     .then(function (result) {
       res.status(201).json({ message: "Profile pic uploaded" })
-
+      console.log(result)
     })
     .catch(function (e) {
 

@@ -17,7 +17,13 @@ const contactSchema = new mongoose.Schema({
         type: String,
         required: 'Email address is required',
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
-    }
+    },
+    status:{
+        type: String,
+        required: false,
+        enum: ['Solved', 'Processing', 
+        ]
+    },
 })
 const contact = mongoose.model('contact', contactSchema)
 module.exports = contact

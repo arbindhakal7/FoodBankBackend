@@ -32,19 +32,24 @@ router.post('/uploadimage',upload.single('myimage'),  function (req, res) {
     // }
 
     const profile_pic=req.file.filename
-
-    const data = customer.updateOne({_id: req.userData._id},{
+    User.updateOne({_id: req.user.id},{
         // profile_pic: req.file.filename,
-
         profile_pic
     })
-        .then(function () {
+        .then(function (result) {
             //success
             console.log("Success")
+            console.log(result)
+            console.log(req.user.id)
+
         })
-        .catch(function () {
+        .catch(function (e) {
             //error
+            console.log(e)
         })
 })
+
+
+
 
 module.exports = router;
