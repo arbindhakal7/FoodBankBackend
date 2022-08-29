@@ -27,29 +27,29 @@ app.use(cors('*'))
 app.use(morgan('tiny'))
 
 
-mongoose.connect(process.env.DbURI,{
+mongoose.connect(process.env.DbURI, {
     useUnifiedTopology: true,
     useFindAndModify: false,
     useNewUrlParser: true,
     useCreateIndex: true
 })
-.then(()=> console.log('Database server connected'))
-.catch((err) => console.log(err));
+    .then(() => console.log('Database server connected'))
+    .catch((err) => console.log(err));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'files')));
 
-app.get('/',(req, res) => {
+app.get('/', (req, res) => {
     res.send('Welcome, to my app');
 });
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/api/user', userRoute);
-app.use('/api/DonateFood' , auth.verifyUser,donateRoute);
+app.use('/api/DonateFood', auth.verifyUser, donateRoute);
 app.use('/api/RequestFood', auth.verifyUser, requestRoute);
-app.use('/api/admin', verifyUser ,verifyAdmin , adminRoute);
+app.use('/api/admin', verifyUser, verifyAdmin, adminRoute);
 app.use('/api/Profile', auth.verifyUser, profileRoute);
 app.use('/api/FoodBank', auth.verifyUser, foodbankRoute);
 app.use('/api/contact', contactRoute)

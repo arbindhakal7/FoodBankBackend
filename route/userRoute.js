@@ -12,33 +12,33 @@ const validation = require('../Validation');
 router.post('/register', (req, res, next) => {
   let { errors, isvalid } = validation.RegisterInput(req.body);
   if (!isvalid) {
-      return res.status(400).json({
-          status: 'error',
-          message: errors
-      });
+    return res.status(400).json({
+      status: 'error',
+      message: errors
+    });
   }
 
   let { fullname, password, phone, role, email,
-      dateOfBirth, gender, address } = req.body;
+    dateOfBirth, gender, address } = req.body;
   User.findOne({ email })
-      .then((user) => {
-          if (user) {
-              let err = new Error('User already exists!');
-              err.status = 400;
-              return next(err);
-          }
-          bcrypt.hash(password, 10)
-              .then(hashed => {
-                  User.create({
-                      fullname, password: hashed,  phone, role,
-                      email, dateOfBirth, gender, address
-                  })
-                      .then(user => {
-                          res.status(201).json({ user, "status": "Registration successful" });
-                      }).catch(next);
-              }).catch(next);
+    .then((user) => {
+      if (user) {
+        let err = new Error('User already exists!');
+        err.status = 400;
+        return next(err);
+      }
+      bcrypt.hash(password, 10)
+        .then(hashed => {
+          User.create({
+            fullname, password: hashed, phone, role,
+            email, dateOfBirth, gender, address
+          })
+            .then(user => {
+              res.status(201).json({ user, "status": "Registration successful" });
+            }).catch(next);
+        }).catch(next);
 
-      }).catch(next);
+    }).catch(next);
 
 })
 
@@ -108,46 +108,46 @@ router.put('/update', function (req, res) {
 router.post('/login', (req, res, next) => {
   let { email, password } = req.body;
   User.findOne({ email })
-      .then((user) => {
-          if (!user) {
-              let err = new Error('User not found ');
-              err.status = 401;
-              return next(err);
+    .then((user) => {
+      if (!user) {
+        let err = new Error('User not found ');
+        err.status = 401;
+        return next(err);
+      }
+      bcrypt.compare(password, user.password)
+        .then((isMatched) => {
+          if (!isMatched) {
+            let err = new Error('password does not match');
+            err.status = 401;
+            return next(err);
           }
-          bcrypt.compare(password, user.password)
-              .then((isMatched) => {
-                  if (!isMatched) {
-                      let err = new Error('password does not match');
-                      err.status = 401;
-                      return next(err);
-                  }
-                  let payload = {
-                      id: user.id,
-                      fullname: user.fullname,
-                      email: user.email,
-                      phone: user.phone,
-                      address: user.address,
-                      role: user.role,
-                      dateOfBirth: user.dateOfBirth,
-                      gender: user.gender,
-                      profile_pic: user.profile_pic
+          let payload = {
+            id: user.id,
+            fullname: user.fullname,
+            email: user.email,
+            phone: user.phone,
+            address: user.address,
+            role: user.role,
+            dateOfBirth: user.dateOfBirth,
+            gender: user.gender,
+            profile_pic: user.profile_pic
 
 
-                  }
-                  jwt.sign(payload, process.env.SECRET, (err, token) => {
-                      if (err) {
-                          return next(err);
-                      }
-                      res.json({
-                          status: 'Login Successful',
-                          token: `Bearer ${token}`,
-                          id: user.id
-                      });
-                  });
+          }
+          jwt.sign(payload, process.env.SECRET, (err, token) => {
+            if (err) {
+              return next(err);
+            }
+            res.json({
+              status: 'Login Successful',
+              token: `Bearer ${token}`,
+              id: user.id
+            });
+          });
 
 
-              }).catch(next);
-      }).catch(next);
+        }).catch(next);
+    }).catch(next);
 
 })
 
@@ -160,9 +160,9 @@ router.post('/profile/upload', upload.single('myimage'), function (req, res) {
     return res.status(400).json({ message: "upload" })
   }
 
-console.log(req.file)
+  console.log(req.file)
 
-  const data = Users.updateOne({_id:req.user._id},{
+  const data = Users.updateOne({ _id: req.user._id }, {
     profile_pic: req.file.filename
   })
 

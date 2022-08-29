@@ -14,12 +14,12 @@ function verifyUser(req, res, next) {
             let err = new Error('Token cound not be found!');
             err.status = 401;
             return next(err);
-        } else{
+        } else {
             req.user = payload;
-        console.log(payload);
-        next();
+            console.log(payload);
+            next();
         }
-        
+
     })
 
 }

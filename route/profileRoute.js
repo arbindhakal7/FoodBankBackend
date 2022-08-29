@@ -24,29 +24,29 @@ router
       .catch(next);
   });
 
-router.post('/uploadimage',upload.single('myimage'),  function (req, res) {
-    // res.send("profile upload")
-    // res.end()
-    // if (req.file == undefined) {
-    //     return res.status(400).json({ message: "upload" })
-    // }
+router.post('/uploadimage', upload.single('myimage'), function (req, res) {
+  // res.send("profile upload")
+  // res.end()
+  // if (req.file == undefined) {
+  //     return res.status(400).json({ message: "upload" })
+  // }
 
-    const profile_pic=req.file.filename
-    User.updateOne({_id: req.user.id},{
-        // profile_pic: req.file.filename,
-        profile_pic
+  const profile_pic = req.file.filename
+  User.updateOne({ _id: req.user.id }, {
+    // profile_pic: req.file.filename,
+    profile_pic
+  })
+    .then(function (result) {
+      //success
+      console.log("Success")
+      console.log(result)
+      console.log(req.user.id)
+
     })
-        .then(function (result) {
-            //success
-            console.log("Success")
-            console.log(result)
-            console.log(req.user.id)
-
-        })
-        .catch(function (e) {
-            //error
-            console.log(e)
-        })
+    .catch(function (e) {
+      //error
+      console.log(e)
+    })
 })
 
 
