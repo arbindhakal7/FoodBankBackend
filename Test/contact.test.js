@@ -18,38 +18,38 @@ afterAll(async () => {
   await mongoose.connection.close();
 });
 
-describe("Contact Schema test anything", () => {
+ describe("Contact Schema test anything", () => {
   // the code below is for insert testing
 
-  it("Add contacts testing anything", () => {
-    const contact = {
-      fullname: "Arbin Dhakal",
-      phone: "9821898001",
-      email: "arbn@gmail.com",
-      message: "Update to donation process would be nice!!!",
-    };
+  // it("Add contacts testing anything", () => {
+  //   const contact = {
+  //     fullname: "Kiran Dhakal",
+  //     phone: "9821898001",
+  //     email: "arbn@gmail.com",
+  //     message: "Update to donation process would be nice!!!",
+  //   };
 
-    return Contact.create(contact)
-    .then((contact_ret) => {
-      expect(contact_ret.fullname).toEqual("Arbin Dhakal");
-    });
-  });
+  //   return Contact.create(contact)
+  //   .then((contact_ret) => {
+  //     expect(contact_ret.fullname).toEqual("Kiran Dhakal");
+  //   });
+  // });
 
   // the code below is for delete all insertions == testing
 
-  //      it('to test the delete', async () => {
+      //  it('to test the delete', async () => {
 
-  //     //  const status = await Contact.deleteMany();
-  //      const status = await Contact.deleteOne({_id: Object('614b5297704ed53e849c770e')});
+      //  const status = await Contact.deleteMany();
+      // //  const status = await Contact.deleteOne({_id: Object('615088f7968b983b948698a0')});
 
-  //      expect(status.ok).toBe(1);
+      //  expect(status.ok).toBe(1);
 
-  //     });
+      // });
 
-  //     it('to test the update', async () =>
-  //     { return Contact.findOneAndUpdate({_id :Object('614e07001ac3b903c082dbaa')},
-  //     {$set : {fullname:'Aayush Dhakal'}})
-  //      .then((Contact)=>{
-  //         expect(Contact.fullname).toEqual('Arbin Dhakal') })
-  //     });
-});
+      it('to test the update', async () =>
+      { return Contact.findOneAndUpdate({_id :Object('6150ac95ab3dac04c4299fa5')},
+      {$set : {fullname:'Aayush Dhakal'}})
+       .then((Contact)=>{
+          expect(Contact.fullname).toEqual('Kiran Dhakal') })
+      });
+ });

@@ -22,38 +22,37 @@ afterAll(async () => {
 describe("Donation Schema test anything", () => {
   // the code below is for insert testing
 
-  it("Add donation testing anything", () => {
-    const donation = {
-      donorName: "Arbin Dhakal",
-      phone: "9821898001",
-      country: "Nepal",
-      district: "Kathmandu",
-      street: "Putalisadak",
-      foodtype: "fresh",
-      date: "09/09/2021",
-    };
+  // it("Add donation testing anything", () => {
+  //   const donation = {
+  //     donorName: "RamNarayan Dhakal",
+  //     phone: "9821898001",
+  //     country: "Nepal",
+  //     district: "Kathmandu",
+  //     street: "Balaju",
+  //     foodtype: "fresh",
+  //     date: "09/09/2021",
+  //   };
 
-    return Donate.create(donation)
-    .then((donate_ret) => {
-      expect(donate_ret.donorName).toEqual("Arbin Dhakal");
-    });
-  });
+  //   return Donate.create(donation)
+  //   .then((donate_ret) => {
+  //     expect(donate_ret.donorName).toEqual("RamNarayan Dhakal");
+  //   });
+  // });
 
   // the code below is for delete all insertions == testing
 
-  it("to test the delete", async () => {
-    //  const status = await Donate.deleteMany();
-    const status = await Donate.deleteOne({
-      _id: Object("614b5297704ed53e849c770e"),
-    });
+  // it("to test the delete", async () => {
+  //     const status = await Donate.deleteMany();
+    
+  //   });
 
-    expect(status.ok).toBe(1);
-  });
-
-  // it('to test the update', async () =>
-  // { return Donate.findOneAndUpdate({_id :Object('614e07001ac3b903c082dbaa')},
-  // {$set : {donorName:'Aayush Dhakal'}})
-  //  .then((Donate)=>{
-  //     expect(Donate.donorName).toEqual('Arbin Dhakal') })
+  //   expect(status.ok).toBe(1);
   // });
+
+  it('to test the update', async () =>
+  { return Donate.findOneAndUpdate({_id :Object('6150ac957ee88b1544bfc385')},
+  {$set : {donorName:'Aayush Dhakal'}})
+   .then((Donate)=>{
+      expect(Donate.donorName).toEqual('RamNarayan Dhakal') })
+  });
 });

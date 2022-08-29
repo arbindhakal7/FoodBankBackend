@@ -27,40 +27,48 @@ beforeAll(async () => {
 
     // the code below is for insert testing
     
-     it('Add request testing anything', () => {
+    //  it('Add request testing anything', () => {
     
-     const request = {
+    //  const request = {
     
-     'requestName': 'Arbin Dhakal',
-     'phone': '9821898001',
-     'country': 'Nepal',
-     'district': 'Kathmandu',
-     'street': 'Putalisadak',
-      'foodtype': 'fresh',
-     'date': '09/09/2021',
+    //  'requestName': 'Bhumika Dhakal',
+    //  'phone': '9821898001',
+    //  'country': 'Nepal',
+    //  'district': 'Kathmandu',
+    //  'street': 'Putalisadak',
+    //   'foodtype': 'fresh',
+    //  'date': '09/09/2021',
     
-     };
+    //  };
     
      
     
-     return Request.create(request)
+    //  return Request.create(request)
     
-     .then((request) => {
+    //  .then((request) => {
     
-     expect(request.requestName).toEqual('Arbin Dhakal');
+    //  expect(request.requestName).toEqual('Bhumika Dhakal');
     
-     });
+    //  });
     
-     });
+    //  });
     
-  // the code below is for delete all insertions == testing
+//   // the code below is for delete all insertions == testing
     
-     it('to test the delete', async () => {
+    //  it('to test the delete', async () => {
     
-     const status = await Request.deleteMany();
+    //  const status = await Request.deleteMany();
     
-     expect(status.ok).toBe(1);
+    //  expect(status.ok).toBe(1);
     
+    // });
+
+    it('to test the update', async () => 
+    { return Request.findOneAndUpdate({_id :Object('6150ac952215d926ace7729d')},
+    {$set : {requestName:'Bhuwan Dhakal'}})
+     .then((Request)=>{ 
+        expect(Request.requestName).toEqual('Bhumika Dhakal') }) 
     });
+
 
 })
